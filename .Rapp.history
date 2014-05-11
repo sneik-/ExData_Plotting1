@@ -1,0 +1,39 @@
+library(datasets)#
+> data(mtcars)
+library(datasets) data(mtcars)
+library(datasets)
+data(mtcars)
+mean(mtcars$mpg, mtcars$cyl)
+getwd()
+setwd("/Users/Jkorkeaa/ExData_Plotting1/")
+data <- read.csv2("household_power_consumption.txt", dec=".", colClasses = c("character", "character", rep("numeric",7)), na.strings="?")
+df_february <- subset(data, as.Date(data$Date, format="%d/%m/%Y") %in% as.Date(c("2007-02-01", "2007-02-02"), format="%Y-%m-%d"))
+hist(df_february$Global_active_power, col = "red", xlab="Global Active Power (kilowatts)", ylab="Frequency", main="Global Active Power", cex.axis=0.75, cex.lab=0.75, cex.main=0.9)
+par(mfcol=c(2,2), cex=0.65)#
+#
+#plot1#
+#
+x <- strptime(paste(df_february$Date,df_february$Time), format="%d/%m/%Y %H:%M:%S")#
+with(df_february, plot(x,Global_active_power, type="l", xlab="", ylab="Global Active Power"))#
+title(xlab=NULL)#
+#
+#plot2#
+#
+with(df_february, {#
+  plot(x,df_february$Sub_metering_1, type="l", xlab="", ylab="Energy sub metering")#
+  lines(x,df_february$Sub_metering_2, type="l", col="red")#
+  lines(x,df_february$Sub_metering_3, type="l", col="blue")#
+  legend("topright", lty=c(1,1), col=c("black","red","blue"), c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), cex=0.8, box.lwd = 0)#
+})#
+#
+#plot3#
+#
+with(df_february, {#
+  plot(x,Voltage,type="l",xlab="datetime",ylab="Voltage")#
+})#
+#
+#plot4 #
+#
+with(df_february, {#
+  plot(x,Global_reactive_power,type="l",xlab="datetime",ylab="Global reactive power")#
+})
